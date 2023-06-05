@@ -1,12 +1,13 @@
 package com.example.aiguru.api
 
+import com.example.aiguru.utils.Constant.Companion.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitHelper {
     fun getInstance() : Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://api.openai.com/v1/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

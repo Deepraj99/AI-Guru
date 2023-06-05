@@ -3,6 +3,7 @@ package com.example.aiguru.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.aiguru.model.response.image.ImageResponse
 import com.example.aiguru.model.response.text.TextResponse
 import com.example.aiguru.repository.ChatRepository
 import kotlinx.coroutines.Dispatchers
@@ -17,9 +18,13 @@ class ChatViewModel(private val chatRepository: ChatRepository,
     init {
         viewModelScope.launch(Dispatchers.IO) {
             chatRepository.getText(contentType, authorization, requestBody)
+//            chatRepository.getImage(contentType, authorization, requestBody)
         }
     }
 
     val getText: LiveData<TextResponse>
     get() = chatRepository.textLiveData
+
+    val getImage: LiveData<ImageResponse>
+    get() = chatRepository.imageLiveData
 }
