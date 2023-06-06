@@ -26,6 +26,7 @@ class ChatViewModel(private val chatRepository: ChatRepository,
     val getText: LiveData<NetworkResult<TextResponse>>
     get() = chatRepository.textLiveData
 
+
 //    val getImage: LiveData<ImageResponse>
 //    get() = chatRepository.imageLiveData
 }

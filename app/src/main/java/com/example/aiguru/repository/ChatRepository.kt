@@ -20,10 +20,11 @@ class ChatRepository(private val apiInterface: ApiInterface) {
 //    val imageLiveData: LiveData<ImageResponse>
 //    get() = imageMutableLiveData
 
-    suspend fun getText(contentType: String, authorization: String, requestBody: RequestBody) {
+    suspend fun  getText(contentType: String, authorization: String, requestBody: RequestBody) {
         val response = apiInterface.getText(contentType, authorization, requestBody)
 
         if (response.isSuccessful  &&  response.body() != null) {
+            //1
             textMutableLiveData.postValue(NetworkResult.Success(response.body()!!))
         } else if (response.errorBody() != null) {
             val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
