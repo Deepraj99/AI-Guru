@@ -51,7 +51,8 @@ class MainActivity : AppCompatActivity() {
                         when (val it = chatViewModel.textResponse) {
                             is NetworkResult.Success -> {
                                 val res = it.data!!.choices.first().text
-                                list.add(Message(isText = true, isUser = false, message = res))
+                                val result=res.replace("\n","")
+                                list.add(Message(isText = true, isUser = false, message = result))
                                 init()
                             }
                             is NetworkResult.Error -> {
