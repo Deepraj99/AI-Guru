@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:backgroundTint="@color/teal_200"
+    android:layout_margin="@dimen/_10sdp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 

@@ -9,12 +9,26 @@ import okhttp3.RequestBody
 class Constant {
     companion object {
         const val BASE_URL = "https://api.openai.com/v1/"
-        const val API_KEY = "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"
+        private const val API_KEY = ""
 
         const val contentType = "application/json"
         const val authorization = "Bearer $API_KEY"
 
 
+        var requestBodyText: RequestBody? = null
+        fun requestBodyText(message: String = "Who are you?") : RequestBody? {
+            requestBodyText = RequestBody.create(
+                MediaType.parse("application/json"),
+                Gson().toJson(
+                    TextRequest(
+                        250,
+                        "text-davinci-003",
+                        message,
+                        0.7
+                    )
+                ))
+            return requestBodyText
+        }
 
         val requestBodyImage: RequestBody = RequestBody.create(MediaType.parse("application/json"),
             Gson().toJson(

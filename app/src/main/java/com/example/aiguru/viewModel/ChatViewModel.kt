@@ -1,32 +1,27 @@
 package com.example.aiguru.viewModel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.aiguru.model.response.image.ImageResponse
+import com.example.aiguru.api.ApiInterface
 import com.example.aiguru.model.response.text.TextResponse
-import com.example.aiguru.repository.ChatRepository
+import com.example.aiguru.utils.Constant
 import com.example.aiguru.utils.NetworkResult
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import okhttp3.RequestBody
+import org.json.JSONObject
 
-class ChatViewModel(private val chatRepository: ChatRepository,
-                    private val requestBody: RequestBody,
-                    private val contentType: String,
-                    private val authorization: String) : ViewModel() {
+class ChatViewModel(private val apiInterface: ApiInterface) : ViewModel() {
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            chatRepository.getText(contentType, authorization, requestBody)
-//            chatRepository.getImage(contentType, authorization, requestBody)
+    var textResponse : NetworkResult<TextResponse>? = null
+    suspend fun  getText() {
+        val response = apiInterface.getText(
+            Constant.contentType,
+            Constant.authorization, Constant.requestBodyText!!)
+
+        textResponse = if (response.isSuccessful  &&  response.body() != null) {
+            NetworkResult.Success(response.body()!!)
+        } else if (response.errorBody() != null) {
+            val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
+            NetworkResult.Error(errorObj.getString("message: "))
+        } else {
+            NetworkResult.Error("Something went wrong!")
         }
     }
-
-    val getText: LiveData<NetworkResult<TextResponse>>
-    get() = chatRepository.textLiveData
-
-
-//    val getImage: LiveData<ImageResponse>
-//    get() = chatRepository.imageLiveData
 }
