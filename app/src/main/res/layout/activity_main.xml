@@ -86,10 +86,13 @@
             android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" >
+
+
+        </EditText>
 
         <ImageView
-            android:id="@+id/tv_send"
+            android:id="@+id/iv_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_send"
@@ -99,15 +102,30 @@
             app:layout_constraintTop_toTopOf="@+id/edit_text"
             app:tint="@color/gray" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/tv_send"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="@dimen/_10sdp"-->
-<!--            android:text="Send"-->
-<!--            android:textSize="@dimen/_18ssp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent" />-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/viewLoadingWavy"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:background="@color/gray_light"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edit_text">
+
+            <com.razzaghimahdi78.dotsloading.linear.LoadingWavy
+                android:id="@+id/loadingWavy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:dots_color="@color/gray"
+                app:dots_count="3"
+                app:dots_duration="500"
+                app:dots_size="medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

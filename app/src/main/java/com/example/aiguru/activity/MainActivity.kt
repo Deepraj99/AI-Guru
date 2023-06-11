@@ -3,7 +3,9 @@ package com.example.aiguru.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +17,7 @@ import com.example.aiguru.utils.Constant.Companion.requestBodyText
 import com.example.aiguru.utils.NetworkResult
 import com.example.aiguru.viewModel.ChatViewModel
 import com.example.aiguru.viewModel.ChatViewModelFactory
+import com.razzaghimahdi78.dotsloading.core.DotSize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,30 +40,37 @@ class MainActivity : AppCompatActivity() {
         initialize()
 
 
-        binding.tvSend.setOnClickListener {
+        binding.ivSend.setOnClickListener {
             if (binding.editText.text.isEmpty()) {
-                Toast.makeText(this, "Enter text", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Write your message!", Toast.LENGTH_SHORT).show()
             } else {
+                binding.ivSend.visibility = View.GONE
+                binding.viewLoadingWavy.visibility = View.VISIBLE
                 list.add(Message(isText = true, isUser = true, message = binding.editText.text.toString()))
                 requestBodyText(binding.editText.text.toString())
+                binding.editText.text.clear()
                 init()
 
                 CoroutineScope(Dispatchers.IO).launch {
                     chatViewModel.getText()
                     withContext(Dispatchers.Main) {
-                        when (val it = chatViewModel.textResponse) {
+                        when (val response = chatViewModel.textResponse) {
                             is NetworkResult.Success -> {
-                                val res = it.data!!.choices.first().text
-                                val result=res.replace("\n","")
+                                binding.viewLoadingWavy.visibility = View.GONE
+                                binding.ivSend.visibility = View.VISIBLE
+                                val result = response.data!!.choices.first().text.replace("\n","")
                                 list.add(Message(isText = true, isUser = false, message = result))
                                 init()
                             }
                             is NetworkResult.Error -> {
-                                val res = it.message!!
-                                Log.d("DEEPAK1", res)
+                                binding.viewLoadingWavy.visibility = View.GONE
+                                binding.ivSend.visibility = View.VISIBLE
+                                val result = response.message!!
+                                list.add(Message(isText = true, isUser = false, message = result))
+                                init()
                             }
                             is NetworkResult.Loading -> {
-                                Log.d("DEEPAK2", "Waiting...")
+                                Log.d("DEEPAK Loading", "Loading called!")
                             }
                             else -> {}
                         }
@@ -77,6 +87,10 @@ class MainActivity : AppCompatActivity() {
 
         chatAdapter = ChatAdapter(list)
         binding.recyclerView.adapter = chatAdapter
+
+        binding.loadingWavy.setSize(DotSize.TINY)
+        binding.loadingWavy.setDotsCount(3)
+        binding.loadingWavy.setDuration(400)
     }
 
     private fun init() {

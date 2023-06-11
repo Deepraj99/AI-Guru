@@ -1,5 +1,6 @@
 package com.example.aiguru.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.aiguru.api.ApiInterface
 import com.example.aiguru.model.response.text.TextResponse
@@ -11,6 +12,8 @@ class ChatViewModel(private val apiInterface: ApiInterface) : ViewModel() {
 
     var textResponse : NetworkResult<TextResponse>? = null
     suspend fun  getText() {
+
+        textResponse = NetworkResult.Loading()
         val response = apiInterface.getText(
             Constant.contentType,
             Constant.authorization, Constant.requestBodyText!!)
@@ -21,7 +24,7 @@ class ChatViewModel(private val apiInterface: ApiInterface) : ViewModel() {
             val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
             NetworkResult.Error(errorObj.getString("message: "))
         } else {
-            NetworkResult.Error("Something went wrong!")
+            NetworkResult.Error("No internet connection!")
         }
     }
 }
