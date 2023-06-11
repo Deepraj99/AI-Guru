@@ -11,6 +11,8 @@ class Constant {
         const val BASE_URL = "https://api.openai.com/v1/"
         private const val API_KEY = ""
 
+        const val CHAT_TYPE = "CHAT_TYPE"
+
         const val contentType = "application/json"
         const val authorization = "Bearer $API_KEY"
 
@@ -30,13 +32,18 @@ class Constant {
             return requestBodyText
         }
 
-        val requestBodyImage: RequestBody = RequestBody.create(MediaType.parse("application/json"),
-            Gson().toJson(
-                ImageRequest(
-                    1,
-                    "A cute baby sea otter",
-                "1024x1024"
-                )
-            ))
+        var requestBodyImage: RequestBody? = null
+        fun requestBodyImage(message: String = "A cute baby sea otter") : RequestBody? {
+            requestBodyImage = RequestBody.create(
+                MediaType.parse("application/json"),
+                Gson().toJson(
+                    ImageRequest(
+                        1,
+                        message,
+                        "1024x1024"
+                    )
+                ))
+            return requestBodyImage
+        }
     }
 }

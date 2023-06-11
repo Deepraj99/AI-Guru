@@ -4,4 +4,5 @@
     <string name="you">You</string>
     <string name="ai_guru">AI Guru</string>
     <string name="write_your_message">Write your message</string>
+    <string name="write_message">"Write your message!"</string>
 </resources>
