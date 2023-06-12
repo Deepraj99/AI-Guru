@@ -55,7 +55,7 @@ class ChatActivity : AppCompatActivity() {
                     requestBodyImage(binding.editText.text.toString())
                 }
 
-                list.add(Message(isText = true, isUser = true, message = binding.editText.text.toString()))
+                list.add(Message(isText = true, isUser = true, message = listOf(binding.editText.text.toString())))
                 binding.editText.text.clear()
                 init()
 
@@ -74,7 +74,7 @@ class ChatActivity : AppCompatActivity() {
                                     is NetworkResult.Success -> {
                                         binding.viewLoadingWavy.visibility = View.GONE
                                         binding.ivSend.visibility = View.VISIBLE
-                                        val result = response.data!!.choices.first().text.replace("\n","")
+                                        val result = listOf(response.data!!.choices.first().text.replace("\n",""))
                                         list.add(Message(isText = true, isUser = false, message = result))
                                         init()
                                     }
@@ -95,7 +95,8 @@ class ChatActivity : AppCompatActivity() {
                                     is NetworkResult.Success -> {
                                         binding.viewLoadingWavy.visibility = View.GONE
                                         binding.ivSend.visibility = View.VISIBLE
-                                        val result = response.data!!.data.first().url
+                                        val result = listOf(response.data!!.data[0].url, response.data.data[1].url, response.data.data[2].url, response.data.data[3].url)
+                                        Log.d("RESPONSE", result.toString())
                                         list.add(Message(isText = true, isUser = false, message = result))
                                         init()
                                     }

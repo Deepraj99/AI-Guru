@@ -38,7 +38,7 @@ class Constant {
                 MediaType.parse("application/json"),
                 Gson().toJson(
                     ImageRequest(
-                        1,
+                        4,
                         message,
                         "1024x1024"
                     )

@@ -54,20 +54,22 @@
             android:fontFamily="@font/rubik"
             android:padding="@dimen/_10sdp"
             android:text="@string/app_name"
+            android:visibility="gone"
             android:textColor="@color/black"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
-        <ImageView
-            android:id="@+id/iv_message_ai"
+        <GridView
+            android:id="@+id/grid_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_250sdp"
-            android:padding="@dimen/_10sdp"
-            android:scaleType="centerCrop"
+            android:layout_height="@dimen/_317sdp"
+            android:numColumns="2"
+            android:horizontalSpacing="-4dp"
+            android:verticalSpacing="-6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view"/>
+            app:layout_constraintTop_toBottomOf="@+id/view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

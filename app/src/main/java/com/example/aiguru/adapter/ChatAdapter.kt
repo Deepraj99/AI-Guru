@@ -4,14 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.GridView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.bumptech.glide.Glide
 import com.example.aiguru.R
 import com.example.aiguru.model.Message
+
 
 class ChatAdapter(private val list: List<Message>, private val chatType: Boolean, private val context: Context) : Adapter<ViewHolder>() {
 
@@ -20,9 +19,8 @@ class ChatAdapter(private val list: List<Message>, private val chatType: Boolean
     }
     inner class AiViewHolder(view: View) : ViewHolder(view) {
         val tvAi = view.findViewById<TextView>(R.id.tv_message_ai)!!
-        val ivAi = view.findViewById<ImageView>(R.id.iv_message_ai)!!
+        val gridView = view.findViewById<GridView>(R.id.grid_layout)!!
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when (viewType) {
             0 -> {
@@ -51,21 +49,22 @@ class ChatAdapter(private val list: List<Message>, private val chatType: Boolean
         val message = list[position]
         when (message.isUser) {
             true -> {
-                (holder as UserViewHolder).tvUser.text = message.message
+                (holder as UserViewHolder).tvUser.text = message.message[0]
             }
             false -> {
                 if (chatType) {
                     (holder as AiViewHolder).apply {
-                        ivAi.visibility = View.GONE
+                        gridView.visibility = View.GONE
                         tvAi.visibility = View.VISIBLE
-                        tvAi.text = message.message
+                        tvAi.text = message.message[0]
                     }
                 } else {
                     (holder as AiViewHolder).apply {
                         tvAi.visibility = View.GONE
-                        ivAi.visibility = View.VISIBLE
+                        gridView.visibility = View.VISIBLE
                     }
-                    Glide.with(context).load(message.message).into(holder.ivAi);
+                    val adapter = GridAdapter(context, message.message)
+                    holder.gridView.adapter = adapter
                 }
             }
         }
