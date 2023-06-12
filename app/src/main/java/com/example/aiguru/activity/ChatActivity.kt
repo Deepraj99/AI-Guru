@@ -13,6 +13,7 @@ import com.example.aiguru.adapter.ChatAdapter
 import com.example.aiguru.databinding.ActivityChatBinding
 import com.example.aiguru.model.Message
 import com.example.aiguru.utils.Constant.Companion.CHAT_TYPE
+import com.example.aiguru.utils.Constant.Companion.SUGGESTION
 import com.example.aiguru.utils.Constant.Companion.requestBodyImage
 import com.example.aiguru.utils.Constant.Companion.requestBodyText
 import com.example.aiguru.utils.NetworkResult
@@ -37,10 +38,12 @@ class ChatActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chat)
         val chatType: Boolean = intent.extras!!.getBoolean(CHAT_TYPE)
+        val suggestion: String = intent.extras!!.getString(SUGGESTION)!!
         val apiInterface = (application as ChatApplication).apiInterface
         chatViewModel = ViewModelProvider(this, ChatViewModelFactory(apiInterface))[ChatViewModel::class.java]
         initialize(chatType)
 
+        binding.editText.setText(suggestion)
         binding.ivBackArrow.setOnClickListener { finish() }
 
 
@@ -76,7 +79,7 @@ class ChatActivity : AppCompatActivity() {
                                     is NetworkResult.Success -> {
                                         binding.viewLoadingWavy.visibility = View.GONE
                                         binding.ivSend.visibility = View.VISIBLE
-                                        val result = listOf(response.data!!.choices.first().text.replace("\n",""))
+                                        val result = listOf(response.data!!.choices.first().text.substring(2))
                                         list.add(Message(isText = true, isUser = false, message = result))
                                         init()
                                     }

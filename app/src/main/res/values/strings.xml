@@ -5,4 +5,16 @@
     <string name="ai_guru">AI Guru</string>
     <string name="write_your_message">Write your message</string>
     <string name="write_message">"Write your message!"</string>
+    <string name="let_s_play_with_images">play with images!</string>
+    <string name="let_s_have_some_conversation">have some conversation!</string>
+    <string name="suggestions">Suggestions</string>
+    <string name="let_s_start">Let\'s start</string>
+    <string name="suggestion1">Write an application for 1 day leave.</string>
+    <string name="suggestion4">Write an essay on Artificial Intelligence.</string>
+    <string name="suggestion5">Write few cool insta captions.</string>
+    <string name="suggestion8">Explain me Gravity like I\'m 5.</string>
+    <string name="suggestion2">Dog walking in the street.</string>
+    <string name="suggestion3">A cute smiling newborn baby.</string>
+    <string name="suggestion6">Few samples of writing letters.</string>
+    <string name="suggestion7">A bird sitting on a girls hand.</string>
 </resources>

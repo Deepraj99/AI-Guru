@@ -12,6 +12,7 @@ class Constant {
         private const val API_KEY = ""
 
         const val CHAT_TYPE = "CHAT_TYPE"
+        const val SUGGESTION = "SUGGESTION"
 
         const val contentType = "application/json"
         const val authorization = "Bearer $API_KEY"
