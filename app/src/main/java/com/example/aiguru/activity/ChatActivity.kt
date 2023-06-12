@@ -41,6 +41,8 @@ class ChatActivity : AppCompatActivity() {
         chatViewModel = ViewModelProvider(this, ChatViewModelFactory(apiInterface))[ChatViewModel::class.java]
         initialize(chatType)
 
+        binding.ivBackArrow.setOnClickListener { finish() }
+
 
         binding.ivSend.setOnClickListener {
             if (binding.editText.text.isEmpty()) {
