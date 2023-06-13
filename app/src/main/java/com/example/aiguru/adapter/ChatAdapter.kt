@@ -4,18 +4,22 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.GridView
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.aiguru.R
+import com.example.aiguru.activity.ChatActivity
+import com.example.aiguru.activity.ImageDetailActivity
 import com.example.aiguru.model.Message
+import com.example.aiguru.utils.Constant
 
 
 class ChatAdapter(private val list: List<Message>, private val chatType: Boolean, private val context: Context) : Adapter<ViewHolder>() {
@@ -70,14 +74,43 @@ class ChatAdapter(private val list: List<Message>, private val chatType: Boolean
                     }
                 } else {
                     (holder as AiViewHolder).apply {
+                        contentCopy.visibility = View.GONE
+                        shareText.visibility = View.GONE
                         tvAi.visibility = View.GONE
                         gridView.visibility = View.VISIBLE
+
+                        val adapter = GridAdapter(context, message.message)
+                        gridView.adapter = adapter
+                        itemClick(gridView, message.message)
                     }
-                    val adapter = GridAdapter(context, message.message)
-                    holder.gridView.adapter = adapter
                 }
             }
         }
+    }
+
+    private fun itemClick(gridView: GridView, urlList: List<String>) {
+        gridView.onItemClickListener =
+            OnItemClickListener { parent, view, position, id ->
+                when (position) {
+                    0 -> {
+                        view.setOnClickListener {navigateToImageDetailActivity(urlList[0]) }
+                    }
+                    1 -> {
+                        view.setOnClickListener {navigateToImageDetailActivity(urlList[1]) }
+                    }
+                    2 -> {
+                        view.setOnClickListener {navigateToImageDetailActivity(urlList[2]) }
+                    }
+                    3 -> {
+                        view.setOnClickListener {navigateToImageDetailActivity(urlList[3]) }
+                    }
+                }
+            }
+    }
+    private fun navigateToImageDetailActivity(url: String) {
+        val intent  = Intent(context, ImageDetailActivity::class.java)
+        intent.putExtra(Constant.URL, url)
+        context.startActivity(intent)
     }
     private fun shareText(text: String) {
         val intent = Intent()

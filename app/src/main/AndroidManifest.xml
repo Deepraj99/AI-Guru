@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".activity.ChatApplication"
@@ -15,6 +17,9 @@
         android:theme="@style/Theme.AIGuru"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.ImageDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.ChatActivity"
             android:exported="false" />
