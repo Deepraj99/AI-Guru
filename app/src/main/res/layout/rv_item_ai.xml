@@ -25,16 +25,39 @@
             app:tint="@color/gray" />
 
         <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/rubik"
             android:text="@string/ai_guru"
             android:textSize="@dimen/_10ssp"
-            android:fontFamily="@font/rubik"
             android:textStyle="bold"
-            android:layout_marginStart="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
             app:layout_constraintStart_toEndOf="@+id/iv_profile"
-            app:layout_constraintTop_toTopOf="@+id/iv_profile"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_profile" />
+            app:layout_constraintTop_toTopOf="@+id/iv_profile" />
+
+        <ImageView
+            android:id="@+id/tv_share"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ic_share"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView4"
+            app:tint="@color/gray"/>
+
+        <ImageView
+            android:id="@+id/tv_content_copy"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ic_content_copy"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView4"
+            app:layout_constraintEnd_toStartOf="@+id/tv_share"
+            app:layout_constraintTop_toTopOf="@+id/textView4"
+            app:tint="@color/gray"/>
 
         <View
             android:id="@+id/view"

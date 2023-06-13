@@ -1,11 +1,17 @@
 package com.example.aiguru.adapter
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridView
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.aiguru.R
@@ -20,6 +26,8 @@ class ChatAdapter(private val list: List<Message>, private val chatType: Boolean
     inner class AiViewHolder(view: View) : ViewHolder(view) {
         val tvAi = view.findViewById<TextView>(R.id.tv_message_ai)!!
         val gridView = view.findViewById<GridView>(R.id.grid_layout)!!
+        val contentCopy = view.findViewById<ImageView>(R.id.tv_content_copy)!!
+        val shareText = view.findViewById<ImageView>(R.id.tv_share)!!
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when (viewType) {
@@ -57,6 +65,8 @@ class ChatAdapter(private val list: List<Message>, private val chatType: Boolean
                         gridView.visibility = View.GONE
                         tvAi.visibility = View.VISIBLE
                         tvAi.text = message.message[0]
+                        contentCopy.setOnClickListener { (context).copyToClipboard(message.message[0]) }
+                        shareText.setOnClickListener { shareText(message.message[0]) }
                     }
                 } else {
                     (holder as AiViewHolder).apply {
@@ -68,5 +78,17 @@ class ChatAdapter(private val list: List<Message>, private val chatType: Boolean
                 }
             }
         }
+    }
+    private fun shareText(text: String) {
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, text)
+        context.startActivity(Intent.createChooser(intent, "Share with:"))
+    }
+    private fun Context.copyToClipboard(text: CharSequence){
+        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("label",text)
+        clipboard.setPrimaryClip(clip)
     }
 }
