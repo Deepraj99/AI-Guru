@@ -1,5 +1,6 @@
 package com.example.aiguru.activity
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -33,6 +34,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var mLayoutManager: LinearLayoutManager
     private var list = ArrayList<Message>()
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -46,6 +48,20 @@ class ChatActivity : AppCompatActivity() {
         binding.editText.setText(suggestion)
         binding.ivBackArrow.setOnClickListener { finish() }
 
+        if (chatType) {
+            binding.suggestion1.setOnClickListener { binding.editText.setText(R.string.explain_quantum_computing_in_simple_terms) }
+            binding.suggestion2.setOnClickListener { binding.editText.setText(R.string.got_any_creative_ideas_for_a_10_year_old_s_birthday) }
+            binding.suggestion3.setOnClickListener { binding.editText.setText(R.string.how_do_i_make_an_http_request_in_javascript) }
+        } else {
+            binding.tvSuggestion1.setText(R.string.suggestion2)
+            binding.tvSuggestion2.setText(R.string.suggestion3)
+            binding.tvSuggestion3.setText(R.string.suggestion7)
+            binding.suggestion1.setOnClickListener { binding.editText.setText(R.string.suggestion2) }
+            binding.suggestion2.setOnClickListener { binding.editText.setText(R.string.suggestion3) }
+            binding.suggestion3.setOnClickListener { binding.editText.setText(R.string.suggestion7) }
+        }
+
+
 
         binding.ivSend.setOnClickListener {
             if (binding.editText.text.isEmpty()) {
@@ -53,6 +69,9 @@ class ChatActivity : AppCompatActivity() {
             } else {
                 binding.ivSend.visibility = View.GONE
                 binding.viewLoadingWavy.visibility = View.VISIBLE
+                binding.suggestion1.visibility = View.GONE
+                binding.suggestion2.visibility = View.GONE
+                binding.suggestion3.visibility = View.GONE
 
                 if (chatType) {
                     requestBodyText(binding.editText.text.toString())

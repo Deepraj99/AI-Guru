@@ -19,4 +19,7 @@
     <string name="suggestion7">A bird sitting on a girls hand.</string>
     <string name="share">Share</string>
     <string name="download">Download</string>
+    <string name="explain_quantum_computing_in_simple_terms">Explain quantum computing in simple terms</string>
+    <string name="got_any_creative_ideas_for_a_10_year_old_s_birthday">Got any creative ideas for a 10 year old’s birthday?</string>
+    <string name="how_do_i_make_an_http_request_in_javascript">How do I make an HTTP request in Javascript?</string>
 </resources>
