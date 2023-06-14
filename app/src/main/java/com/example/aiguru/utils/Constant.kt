@@ -12,8 +12,8 @@ import okhttp3.RequestBody
 
 class Constant {
     companion object {
-        const val BASE_URL = "https://api.openai.com/v1/"
-        private const val API_KEY = "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"
+        const val BASE_URL = "https://api.edenai.run/v2/"
+        private const val API_KEY = ""
 
         const val CHAT_TYPE = "CHAT_TYPE"
         const val SUGGESTION = "SUGGESTION"
@@ -29,10 +29,13 @@ class Constant {
                 MediaType.parse("application/json"),
                 Gson().toJson(
                     TextRequest(
-                        250,
-                        "text-davinci-003",
-                        message,
-                        0.7
+                        false,
+                        1,
+                        "openai",
+                        "1024x1024",
+                        response_as_dict = true,
+                        show_original_response = false,
+                        text = message
                     )
                 ))
             return requestBodyText
@@ -44,9 +47,13 @@ class Constant {
                 MediaType.parse("application/json"),
                 Gson().toJson(
                     ImageRequest(
+                        false,
                         4,
-                        message,
-                        "1024x1024"
+                        "openai",
+                        "256x256",
+                        response_as_dict = true,
+                        show_original_response = false,
+                        text = message
                     )
                 ))
             return requestBodyImage

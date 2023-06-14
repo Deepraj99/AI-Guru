@@ -10,14 +10,14 @@ import retrofit2.http.POST
 
 interface ApiInterface {
 
-    @POST("completions")
+    @POST("text/generation")
     suspend fun getText(
         @Header("Content-Type") contentType: String,
         @Header("Authorization") authorization: String,
         @Body requestBody: RequestBody
     ) : Response<TextResponse>
 
-    @POST("images/generations")
+    @POST("image/generation")
     suspend fun getImage(
         @Header("Content-Type") contentType: String,
         @Header("Authorization") authorization: String,

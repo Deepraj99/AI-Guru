@@ -79,7 +79,7 @@ class ChatActivity : AppCompatActivity() {
                                     is NetworkResult.Success -> {
                                         binding.viewLoadingWavy.visibility = View.GONE
                                         binding.ivSend.visibility = View.VISIBLE
-                                        val result = listOf(response.data!!.choices.first().text.substring(2))
+                                        val result = listOf(response.data!!.openai.generated_text.substring(2))
                                         list.add(Message(isText = true, isUser = false, message = result))
                                         init()
                                     }
@@ -100,8 +100,7 @@ class ChatActivity : AppCompatActivity() {
                                     is NetworkResult.Success -> {
                                         binding.viewLoadingWavy.visibility = View.GONE
                                         binding.ivSend.visibility = View.VISIBLE
-                                        val result = listOf(response.data!!.data[0].url, response.data.data[1].url, response.data.data[2].url, response.data.data[3].url)
-                                        Log.d("RESPONSE", result.toString())
+                                        val result = listOf(response.data!!.openai.items[0].image_resource_url, response.data.openai.items[1].image_resource_url, response.data.openai.items[2].image_resource_url, response.data.openai.items[3].image_resource_url)
                                         list.add(Message(isText = true, isUser = false, message = result))
                                         init()
                                     }
